@@ -13,31 +13,31 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//@Configuration
-public class RabbitMQConfig {
+@Configuration
+public class RabbitMQCategoryConfig {
 
-	@Value("${example.rabbitmq.queue}")
-	private String queueName;
+	@Value("${category.rabbitmq.queue}")
+	private String categoryQueue;
 	
-	@Value("${example.rabbitmq.exchange}")
-	private String exchange;
+	@Value("${category.rabbitmq.exchange}")
+	private String categoryExchange;
 	
-	@Value("${example.rabbitmq.routingkey}")
-	private String routingKey;
+	@Value("${category.rabbitmq.routingkey}")
+	private String categoryRoutingkey;
 	
 	@Bean
 	public Queue queue() {
-		return new Queue(queueName, false);
+		return new Queue(categoryQueue, false);
 	}
 	
 	@Bean
 	public DirectExchange exchange() {
-		return new DirectExchange(exchange);
+		return new DirectExchange(categoryExchange);
 	}
 	
 	@Bean
 	public Binding binding(Queue queue, DirectExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+		return BindingBuilder.bind(queue).to(exchange).with(categoryRoutingkey);
 	}
 	
 	@Bean
